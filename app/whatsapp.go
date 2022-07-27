@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Message struct {
@@ -14,13 +15,23 @@ type Message struct {
 	Recipient_type    string `json:"recipient_type"`
 	To                string `json:"to"`
 	Type              string `json:"type"`
-	Text              Text   `json:"text"`
-	Image             Image  `json:"image"`
+	Text              *Text  `json:"text"`
+	//Image             Image  `json:"image"`
+	//Template          Template `json:"template"`
 }
 
 type Text struct {
 	Preview_url bool   `json:"preview_url"`
 	Body        string `json:"body"`
+}
+
+type Template struct {
+	Name     string   `json:"name"`
+	Language Language `json:"language"`
+}
+
+type Language struct {
+	Code string `json:"code"`
 }
 
 type Image struct {
@@ -44,16 +55,16 @@ type Msg struct {
 
 func SendMsg() {
 
-	uri := "https://graph.facebook.com/v13.0/101104952624494/messages"
+	uri := "https://graph.facebook.com/v13.0/app_id/messages"
 
 	client := http.Client{}
 	body := new(Message)
 
 	body.Messaging_product = "whatsapp"
 	body.Recipient_type = "individual"
-	body.To = "2347014327332"
+	body.To = ""
 	body.Type = "text"
-	body.Text = Text{Body: "hello salemzii from the goland Again", Preview_url: true}
+	body.Text = &Text{Body: "hello salemzii from the goland Again", Preview_url: true}
 
 	json_data, err := json.Marshal(body)
 
@@ -69,7 +80,7 @@ func SendMsg() {
 
 	req.Header = http.Header{
 		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{"Bearer EAAPawvj0HV0BAHeZAnzsRoCAZAy5BxwgzG3H1BX2bAKg8ranW02EMBeMoauWC6I9cbbpUrkDQ8HIo7aVyapljZBze90jaVx04RB6A6jkrvtQqZBIBSRIJkalUkv5aQxVDuYc9RXeaG3LQBEqKyZCTA0E9aEex3Wa3zoojVJe5ZACLj8JXk03mvxU2R0dfrxEmt4JdgE3ZAS3gZDZD"},
+		"Authorization": []string{os.Getenv("META_ACCESS_TOKEN")},
 	}
 
 	res, err := client.Do(req)
@@ -96,16 +107,17 @@ func SendMsg() {
 	fmt.Println(respJson)
 }
 
+/*
 func SendMediaMsg() {
 
-	uri := "https://graph.facebook.com/v13.0/101104952624494/messages"
+	uri := "https://graph.facebook.com/v13.0/app_id/messages"
 
 	client := http.Client{}
 	body := new(Message)
 
 	body.Messaging_product = "whatsapp"
 	body.Recipient_type = "individual"
-	body.To = "2348053503763"
+	body.To = ""
 	body.Image = Image{}
 
 	json_data, err := json.Marshal(body)
@@ -122,7 +134,7 @@ func SendMediaMsg() {
 
 	req.Header = http.Header{
 		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{"Bearer EAAPawvj0HV0BAHeZAnzsRoCAZAy5BxwgzG3H1BX2bAKg8ranW02EMBeMoauWC6I9cbbpUrkDQ8HIo7aVyapljZBze90jaVx04RB6A6jkrvtQqZBIBSRIJkalUkv5aQxVDuYc9RXeaG3LQBEqKyZCTA0E9aEex3Wa3zoojVJe5ZACLj8JXk03mvxU2R0dfrxEmt4JdgE3ZAS3gZDZD"},
+		"Authorization": []string{""},
 	}
 
 	res, err := client.Do(req)
@@ -148,3 +160,58 @@ func SendMediaMsg() {
 	}
 	fmt.Println(respJson)
 }
+
+/*
+func SendTemplMsg() {
+
+	uri := "https://graph.facebook.com/v13.0/app_id/messages"
+
+	client := http.Client{}
+	body := new(Message)
+
+	body.Messaging_product = "whatsapp"
+	body.To = ""
+	body.Type = "template"
+	body.Template = Template{Name: "hello_world", Language: Language{Code: "en_US"}}
+
+	json_data, err := json.Marshal(body)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	req, err := http.NewRequest("POST", uri, bytes.NewBuffer(json_data))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req.Header = http.Header{
+		"Content-Type":  []string{"application/json"},
+		"Authorization": []string{os.Getenv("META_ACCESS_TOKEN")},
+	}
+
+	res, err := client.Do(req)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	fmt.Println(res.Status)
+	// decode the response body to a  bytes
+	respByte, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// decode bytes response to a readable json
+
+	var respJson MessageResponse
+	err = json.Unmarshal(respByte, &respJson)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(respJson)
+}
+*/
