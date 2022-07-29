@@ -1,14 +1,12 @@
 package main
 
-import "github.com/salemzii/cygio/twitter"
+import (
+	"github.com/salemzii/cygio/linkedin"
+)
 
 func main() {
 
-	//app.PagePost("hello world from alat app")
-
-	//app.CreateTweet("Hello world from alat app")
-	//app.DeleteTweet()
-	//app.TweetLikes()
-	twitter.GetUserByUserName("bod_republic")
+	//twitter.GetUserByUserName("bod_republic")
+	linkedin.GenerateLinkedinAccessToken()
 
 }
