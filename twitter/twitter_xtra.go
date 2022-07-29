@@ -1,4 +1,4 @@
-package app
+package twitter
 
 import (
 	"net/http"
@@ -46,10 +46,25 @@ type CreateTweetData struct {
 	ID   string `json:"id"`
 	Text string `json:"text"`
 }
+type DeleteTweetData struct {
+	Deleted bool `json:"deleted"`
+}
 type CreateTweetResponse struct {
 	Tweet *CreateTweetData `json:"data"`
 }
 
+type DeleteTweetResponse struct {
+	Data *DeleteTweetData `json:"data"`
+}
+
 type GetTweetResponse struct {
 	Data []CreateTweetData `json:"data"`
+}
+type TwitterUsers struct {
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	Username string `json:"username"`
+}
+type GetLikingUsers struct {
+	Data []TwitterUsers `json:"data"`
 }

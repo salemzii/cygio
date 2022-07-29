@@ -1,12 +1,14 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/salemzii/cygio/app"
-)
+import "github.com/salemzii/cygio/twitter"
 
 func main() {
-	fmt.Println(app.GetTweetById(1552302570470883329))
-	fmt.Println(app.CreateTweet("Hello twitter, hope this works :) "))
+
+	//app.PagePost("hello world from alat app")
+
+	//app.CreateTweet("Hello world from alat app")
+	//app.DeleteTweet()
+	//app.TweetLikes()
+	twitter.GetUserByUserName("bod_republic")
+
 }
