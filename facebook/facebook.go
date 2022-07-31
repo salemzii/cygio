@@ -41,7 +41,7 @@ func PagePost(text string) {
 func PagePostMedia() {
 	res, err := fb.Post("100624668732142/photos", fb.Params{
 		"url":          "https://drive.google.com/file/d/1WkVIKJ8Fba6vSDC8DsOnXYQaPBBCvGC6",
-		"access_token": "EAAK3LCZBTUA4BAAexXPsSd2Cia16VDwVFHWkL0mBblSDIZCFDhwcCVy2fZCBkaLM2p6HxLJhdRjDI3nV6vrXgv97WVdVUSdE3KDdR8HRm9824zLcONGX0NeEhiycPAA28X70S2tbIZAfI4a6qRjrMh785hp3gpgoyWRe6ZAZAVWbKuEvwvvE3ai5DFUcBAYQJhBRh2OKgmt7EtsrJ0HUAZB", //os.Getenv("fb_pg_access"),
+		"access_token": os.Getenv("fb_pg_access"),
 	})
 	if err != nil {
 		log.Println("ERROR: ", err)
