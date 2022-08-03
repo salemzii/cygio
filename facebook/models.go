@@ -1,9 +1,13 @@
 package facebook
 
-import "errors"
+import (
+	"errors"
+	"sync"
+)
 
 var (
 	UnmarshalError = errors.New("Unmarshal Error")
+	Wg             sync.WaitGroup
 )
 
 type Message struct {

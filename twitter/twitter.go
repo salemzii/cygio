@@ -7,11 +7,13 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sync"
 )
 
 var (
 	httpClient *http.Client
 	URL        = "https://api.twitter.com/2"
+	Wg         sync.WaitGroup
 )
 
 func GetTweetById(id int) *GetTweetResponse {

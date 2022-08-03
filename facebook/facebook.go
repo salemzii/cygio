@@ -20,6 +20,7 @@ func GetUsername() {
 }
 
 func PagePost(text string) {
+
 	res, err := fb.Post("100624668732142/feed",
 		fb.Params{
 			"message":      text,
@@ -32,7 +33,6 @@ func PagePost(text string) {
 	fmt.Println(res)
 }
 
-//https://drive.google.com/file/d/1WkVIKJ8Fba6vSDC8DsOnXYQaPBBCvGC6
 func PagePostMedia() {
 	res, err := fb.Post("100624668732142/photos", fb.Params{
 		"url":          "https://drive.google.com/file/d/1WkVIKJ8Fba6vSDC8DsOnXYQaPBBCvGC6",
