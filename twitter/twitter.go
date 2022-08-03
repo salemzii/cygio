@@ -175,3 +175,47 @@ func GetUserByUserName(username string) (response *GetLikingUsers, err error) {
 	fmt.Println(resp)
 	return &resp, nil
 }
+
+func RecentTweetSearch(keyword string) {
+
+	//https://api.twitter.com/2/tweets/search/recent?
+	//query=from:TwitterDev&tweet.fields=created_at&expansions=author_id&user.fields=created_at
+	endpoint := fmt.Sprintf("/tweets/search/recent?query=%s&tweet.fields=created_at&expansions=author_id&user.fields=created_at", keyword)
+	path := URL + endpoint
+
+	httpClient = cred.GetClientToken()
+	res, err := httpClient.Get(path)
+
+	if err != nil {
+		log.Println(err)
+	}
+	defer res.Body.Close()
+
+	// decode the response body to a  bytes
+	respByte, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(respByte))
+}
+
+func GetVolumeTweet() {
+	endpoint := "/tweets/sample/stream"
+	path := URL + endpoint
+
+	httpClient = cred.GetClientToken()
+	res, err := httpClient.Get(path)
+	if err != nil {
+		log.Println(err)
+	}
+	defer res.Body.Close()
+
+	// decode the response body to a  bytes
+	respByte, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(respByte))
+}

@@ -1,16 +1,11 @@
 package facebook
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"os"
 
 	fb "github.com/huandu/facebook/v2"
-)
-
-var (
-	UnmarshalError = errors.New("Unmarshal Error")
 )
 
 func GetUsername() {
