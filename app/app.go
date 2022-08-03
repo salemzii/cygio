@@ -25,7 +25,7 @@ func ReceiveAlert(c *gin.Context) {
 		log.Println(alert)
 	}
 	log.Println("Dispensing alerts to all listed platforms and urls")
-	CreateAlerts(alert)
+	defer CreateAlerts(alert)
 
 	c.JSON(200, gin.H{
 		"success": "Alerts distributed successfully",
